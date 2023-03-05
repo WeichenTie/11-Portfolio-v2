@@ -1,4 +1,4 @@
-precision highp float;
+precision lowp float;
 #define PI 3.141592653589793
 #define HASHSCALE 0.1031
 #define NUM_SHAPES 14
@@ -34,7 +34,7 @@ struct Ray {
 };
 
 float epsilonNorm = 0.001;
-float epsilon = 0.001;
+float epsilon = 0.01;
 
 Shape shapes[NUM_SHAPES];
 

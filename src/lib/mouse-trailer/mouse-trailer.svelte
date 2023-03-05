@@ -33,7 +33,7 @@
           case "link":
             iconType = FiArrowUpRight;
             break;
-          case "video":
+          case "plus":
             iconType = HiOutlinePlus;
             break;
         }

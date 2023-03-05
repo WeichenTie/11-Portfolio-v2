@@ -36,6 +36,6 @@
   export let className = "";
 </script>
 
-<span bind:this={ref} class={className + " inline-block h-full w-full"}>
+<span bind:this={ref} class={className}>
   <slot />
 </span>
