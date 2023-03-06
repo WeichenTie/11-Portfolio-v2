@@ -2,6 +2,8 @@ precision lowp float;
 #define PI 3.141592653589793
 #define HASHSCALE 0.1031
 #define NUM_SHAPES 14
+#define MAX_DISTANCE 50.0
+#define MAX_STEP_COUNT 96
 
 in vec2 v_Uv;
 
@@ -19,7 +21,6 @@ struct Shape {
     vec3 position;
     vec3 size;
     vec4 color;
-    int type;
 };
 
 struct SceneInfo {
@@ -33,7 +34,7 @@ struct Ray {
     vec3 direction;
 };
 
-float epsilonNorm = 0.001;
+float epsilonNorm = 0.01;
 float epsilon = 0.01;
 
 Shape shapes[NUM_SHAPES];
@@ -98,7 +99,7 @@ vec3 getColor(vec3 color, vec3 position, vec3 normal) {
     vec3 eyeToSurfaceDir = normalize(position - camPos);
     vec3 reflectionDir = reflect(eyeToSurfaceDir, normal);
 
-    vec3 finalColor = (ambient + diffuse + specular) * color * 0.1 + 2.0 * (ambient + diffuse + specular) * texture(u_CubeMapTex, reflectionDir).xyz;
+    vec3 finalColor = (ambient + diffuse + specular) * color * 0.1 + 3.0 * (ambient + diffuse + specular) * texture(u_CubeMapTex, reflectionDir).xyz;
     // vec3 finalColor = 1.5 * (ambient + diffuse + specular ) * texture(u_CubeMapTex, reflectionDir).xyz;
     return finalColor;
 }
@@ -106,21 +107,9 @@ vec3 getColor(vec3 color, vec3 position, vec3 normal) {
 float sphereDistance(vec3 eye, vec3 center, float radius) {
     return distance(eye, center) - radius;
 }
-float cubeDistance(vec3 eye, vec3 centre, vec3 size) {
-    vec3 o = abs(eye - centre) - size;
-    float ud = length(max(o, 0.0));
-    float n = max(max(min(o.x, 0.0), min(o.y, 0.0)), min(o.z, 0.0));
-    return ud + n;
-}
 
 float getShapeDist(vec3 origin, Shape shape) {
-    float distance = 0.0;
-    if(shape.type == 1) {
-        distance = sphereDistance(origin, shape.position, shape.size.x);
-    } else if(shape.type == 2) {
-        distance = cubeDistance(origin, shape.position, shape.size);
-    }
-    return distance;
+    return sphereDistance(origin, shape.position, shape.size.x);
 }
 
 vec4 smoothBlend(float a, float b, vec3 colA, vec3 colB, float k) {
@@ -130,10 +119,24 @@ vec4 smoothBlend(float a, float b, vec3 colA, vec3 colB, float k) {
     return vec4(blendCol, blendDst);
 }
 
+float smoothBlendDist(float a, float b, float k) {
+    float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
+    return mix(b, a, h) - k * h * (1.0 - h);
+}
+
+float getSceneDist(vec3 origin) {
+    float distance = 100000000.0;
+    for(int i = 0; i < NUM_SHAPES; i++) {
+        distance = smoothBlendDist(distance, getShapeDist(origin, shapes[i]), 2.0);
+      // info.distance = min(info.distance, getShapeDist(origin, shapes[i]));
+      // info.color = shapes[i].color.xyz;
+    }
+    return distance;
+}
+
 SceneInfo getRaySceneInfo(vec3 origin) {
     SceneInfo info;
     info.distance = 100000000.0;
-    // info.distance =  mandelbulbDistance(origin);
     info.color = vec3(1.0);
     for(int i = 0; i < NUM_SHAPES; i++) {
         vec4 b = smoothBlend(info.distance, getShapeDist(origin, shapes[i]), info.color.xyz, shapes[i].color.xyz, 2.0);
@@ -146,33 +149,53 @@ SceneInfo getRaySceneInfo(vec3 origin) {
 }
 
 vec3 estimateNormal(vec3 p) {
-    float x = getRaySceneInfo(vec3(p.x + epsilonNorm, p.y, p.z)).distance - getRaySceneInfo(vec3(p.x - epsilonNorm, p.y, p.z)).distance;
-    float y = getRaySceneInfo(vec3(p.x, p.y + epsilonNorm, p.z)).distance - getRaySceneInfo(vec3(p.x, p.y - epsilonNorm, p.z)).distance;
-    float z = getRaySceneInfo(vec3(p.x, p.y, p.z + epsilonNorm)).distance - getRaySceneInfo(vec3(p.x, p.y, p.z - epsilonNorm)).distance;
+    float x = getSceneDist(vec3(p.x + epsilonNorm, p.y, p.z)) - getSceneDist(vec3(p.x - epsilonNorm, p.y, p.z));
+    float y = getSceneDist(vec3(p.x, p.y + epsilonNorm, p.z)) - getSceneDist(vec3(p.x, p.y - epsilonNorm, p.z));
+    float z = getSceneDist(vec3(p.x, p.y, p.z + epsilonNorm)) - getSceneDist(vec3(p.x, p.y, p.z - epsilonNorm));
     return normalize(vec3(x, y, z));
 }
 
 void main() {
-    shapes = Shape[NUM_SHAPES](Shape(vec3(noise(u_Time * 0.15 + 9000.0) * 5.0, noise(u_Time * 0.12 + 1000.0) * 4.5, noise(u_Time * 0.11 + 3000.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 0.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.18 + 5000.0) * 5.0, noise(u_Time * 0.16 + 9000.0) * 4.5, noise(u_Time * 0.10 + 1000.0) * 6.0), vec3(2.0), vec4(0.0, 0.5, 1.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.12 - 5000.0) * 5.0, noise(u_Time * 0.15 - 3000.0) * 4.5, noise(u_Time * 0.12 - 3000.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 1.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.13 + 7000.0) * 5.0, noise(u_Time * 0.14 + 1000.0) * 4.5, noise(u_Time * 0.15 + 6000.0) * 6.0), vec3(2.0), vec4(0.0, 1.0, 1.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.14 - 7000.0) * 5.0, noise(u_Time * 0.13 - 5000.0) * 4.5, noise(u_Time * 0.13 - 1000.0) * 6.0), vec3(2.0), vec4(1.0, 1.0, 0.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.18 + 3000.0) * 5.0, noise(u_Time * 0.10 + 1500.0) * 4.5, noise(u_Time * 0.19 + 9000.0) * 6.0), vec3(2.0), vec4(1.0, 0.6, 0.2, 1.0), 1), Shape(vec3(noise(u_Time * 0.16 - 2000.0) * 5.0, noise(u_Time * 0.12 - 4500.0) * 4.5, noise(u_Time * 0.16 - 2000.0) * 6.0), vec3(2.0), vec4(0.1, 1.0, 0.2, 1.0), 1), Shape(vec3(noise(u_Time * 0.12 + 4000.0) * 5.0, noise(u_Time * 0.11 + 2200.0) * 4.5, noise(u_Time * 0.17 + 3200.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 0.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.13 + 3000.0) * 5.0, noise(u_Time * 0.13 + 1600.0) * 4.5, noise(u_Time * 0.42 + 2700.0) * 6.0), vec3(2.0), vec4(0.0, 0.5, 1.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.15 - 7900.0) * 5.0, noise(u_Time * 0.16 - 8800.0) * 4.5, noise(u_Time * 0.15 - 6400.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 1.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.18 + 1300.0) * 5.0, noise(u_Time * 0.18 + 4200.0) * 4.5, noise(u_Time * 0.13 + 7100.0) * 6.0), vec3(2.0), vec4(0.0, 1.0, 1.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.11 - 6400.0) * 5.0, noise(u_Time * 0.14 - 2800.0) * 4.5, noise(u_Time * 0.12 - 3200.0) * 6.0), vec3(2.0), vec4(1.0, 1.0, 0.0, 1.0), 1), Shape(vec3(noise(u_Time * 0.12 + 3400.0) * 5.0, noise(u_Time * 0.12 + 2100.0) * 4.5, noise(u_Time * 0.10 + 2400.0) * 6.0), vec3(2.0), vec4(1.0, 0.6, 0.2, 1.0), 1), Shape(vec3(noise(u_Time * 0.13 - 5030.0) * 5.0, noise(u_Time * 0.11 - 6900.0) * 4.5, noise(u_Time * 0.11 - 1500.0) * 6.0), vec3(2.0), vec4(0.1, 1.0, 0.2, 1.0), 1));
+    shapes = Shape[NUM_SHAPES](
+    Shape(vec3(noise(u_Time * 0.15 + 9000.0) * 5.0, noise(u_Time * 0.12 + 1000.0) * 4.5, noise(u_Time * 0.11 + 3000.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 0.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.18 + 5000.0) * 5.0, noise(u_Time * 0.16 + 9000.0) * 4.5, noise(u_Time * 0.10 + 1000.0) * 6.0), vec3(2.0), vec4(0.0, 0.5, 1.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.12 - 5000.0) * 5.0, noise(u_Time * 0.15 - 3000.0) * 4.5, noise(u_Time * 0.12 - 3000.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 1.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.13 + 7000.0) * 5.0, noise(u_Time * 0.14 + 1000.0) * 4.5, noise(u_Time * 0.15 + 6000.0) * 6.0), vec3(2.0), vec4(0.0, 1.0, 1.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.14 - 7000.0) * 5.0, noise(u_Time * 0.13 - 5000.0) * 4.5, noise(u_Time * 0.13 - 1000.0) * 6.0), vec3(2.0), vec4(1.0, 1.0, 0.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.18 + 3000.0) * 5.0, noise(u_Time * 0.10 + 1500.0) * 4.5, noise(u_Time * 0.19 + 9000.0) * 6.0), vec3(2.0), vec4(1.0, 0.6, 0.2, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.16 - 2000.0) * 5.0, noise(u_Time * 0.12 - 4500.0) * 4.5, noise(u_Time * 0.16 - 2000.0) * 6.0), vec3(2.0), vec4(0.1, 1.0, 0.2, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.12 + 4000.0) * 5.0, noise(u_Time * 0.11 + 2200.0) * 4.5, noise(u_Time * 0.17 + 3200.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 0.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.13 + 3000.0) * 5.0, noise(u_Time * 0.13 + 1600.0) * 4.5, noise(u_Time * 0.42 + 2700.0) * 6.0), vec3(2.0), vec4(0.0, 0.5, 1.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.15 - 7900.0) * 5.0, noise(u_Time * 0.16 - 8800.0) * 4.5, noise(u_Time * 0.15 - 6400.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 1.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.18 + 1300.0) * 5.0, noise(u_Time * 0.18 + 4200.0) * 4.5, noise(u_Time * 0.13 + 7100.0) * 6.0), vec3(2.0), vec4(0.0, 1.0, 1.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.11 - 6400.0) * 5.0, noise(u_Time * 0.14 - 2800.0) * 4.5, noise(u_Time * 0.12 - 3200.0) * 6.0), vec3(2.0), vec4(1.0, 1.0, 0.0, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.12 + 3400.0) * 5.0, noise(u_Time * 0.12 + 2100.0) * 4.5, noise(u_Time * 0.10 + 2400.0) * 6.0), vec3(2.0), vec4(1.0, 0.6, 0.2, 1.0)), 
+    Shape(vec3(noise(u_Time * 0.13 - 5030.0) * 5.0, noise(u_Time * 0.11 - 6900.0) * 4.5, noise(u_Time * 0.11 - 1500.0) * 6.0), vec3(2.0), vec4(0.1, 1.0, 0.2, 1.0)));
 
     vec2 uv = gl_FragCoord.xy / vec2(u_WindowWidth, u_WindowHeight) * 2.0 - 1.0;
     Ray ray = createRayFromCamera(uv);
-    float maxDistance = 50.0;
+    
     float marchedDist = 0.0;
 
     f_Color = vec4(0.0, 0.0, 0.0, 1.0);
-    int maxStepCount = 200;
     int marchSteps = 0;
-    while(marchedDist < maxDistance && marchSteps < maxStepCount) {
+
+    float distanceMarched;
+
+    while(marchedDist < MAX_DISTANCE && marchSteps < MAX_STEP_COUNT) {
+        distanceMarched = getSceneDist(ray.origin);
+        ray.origin += ray.direction * distanceMarched;
+        marchedDist += distanceMarched;
         marchSteps++;
-        SceneInfo info = getRaySceneInfo(ray.origin);
-        if(info.distance <= epsilon) {
-            vec3 normal = estimateNormal(ray.origin);
-            vec3 color = getColor(info.color, ray.origin, normal);
-            f_Color = vec4(color, 1.0);
+        if(distanceMarched <= epsilon) {
             break;
         }
-        ray.origin += ray.direction * info.distance;
-        marchedDist += info.distance;
+    }
+    
+    if(distanceMarched <= epsilon) {
+        SceneInfo info = getRaySceneInfo(ray.origin);
+        vec3 normal = estimateNormal(ray.origin);
+        vec3 color = getColor(info.color, ray.origin, normal);
+        f_Color = vec4(color, 1.0);
     }
 }
