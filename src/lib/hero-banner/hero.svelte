@@ -104,4 +104,6 @@
   });
 </script>
 
-<canvas class="h-vh fixed top-0 left-0 -z-50 w-full" id="hero-canvas" />
+<canvas
+  class="h-vh fixed top-0 left-0 -z-50 w-full bg-black"
+  id="hero-canvas" />
