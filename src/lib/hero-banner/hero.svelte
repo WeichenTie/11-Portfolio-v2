@@ -31,6 +31,7 @@
       renderer.setSize(width, height);
       renderer.getContext().canvas.width = window.innerWidth;
       renderer.getContext().canvas.height = window.innerHeight;
+      (renderer.getContext().canvas as Element).style = "height: 100lvh !important;";
     }
 
     function animate(time: number) {
@@ -105,5 +106,6 @@
 </script>
 
 <canvas
-  class="h-vh fixed top-0 left-0 -z-50 w-full bg-black"
+  class="fixed top-0 left-0 -z-50 w-full bg-black"
+  style="height: 100lvh !important;"
   id="hero-canvas" />

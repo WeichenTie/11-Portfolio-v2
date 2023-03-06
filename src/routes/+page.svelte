@@ -31,7 +31,7 @@
   </section>
   <!-- ABOUT ME -->
   <div class="sticky top-0 left-0 -z-40 h-0 w-full" aria-hidden="true">
-    <div class="main-bg-blur h-screen w-full" aria-hidden="true" />
+    <div class="main-bg-blur h-[100lvh] w-full" aria-hidden="true" />
   </div>
 
   <section id="about" class="main-container mx-auto">
