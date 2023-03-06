@@ -13,7 +13,6 @@
     GLSL3,
     CubeTextureLoader,
   } from 'three';
-  console.log(throttle);
 
   Cache.enabled = true;
   const loader = new FileLoader();
@@ -54,19 +53,26 @@
     const frag = loader.loadAsync('shaders/spheretracing/frag.glsl');
     const cubeMap = cubeMapLoader
       .setPath('cubemaps/aurora/')
-      .loadAsync(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+      .loadAsync([
+        'px.webp',
+        'nx.webp',
+        'py.webp',
+        'ny.webp',
+        'pz.webp',
+        'nz.webp',
+      ]);
 
     const scene = new Scene();
     const renderer = new WebGLRenderer({
       canvas: document.getElementById('hero-canvas') as HTMLCanvasElement,
     });
-
     const camera = new PerspectiveCamera(
       50,
       renderer.getContext().canvas.width / renderer.getContext().canvas.height,
       0.1,
       2000,
     );
+    handleResize();
     const quad = new Mesh(
       new PlaneGeometry(2, 2),
       new ShaderMaterial({
@@ -98,9 +104,4 @@
   });
 </script>
 
-<canvas
-  class="fixed top-0 left-0 -z-50"
-  id="hero-canvas"
-  width={window.innerWidth}
-  height={window.innerHeight}
-/>
+<canvas class="h-vh fixed top-0 left-0 -z-50 w-full" id="hero-canvas" />

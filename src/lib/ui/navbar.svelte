@@ -1,71 +1,74 @@
-<script>
-  import GitHub from '../../assets/company-icons/GitHub.webp';
-  import LinkedIn from '../../assets/company-icons/LinkedIn.png';
-  import HiOutlineNewspaper from 'svelte-icons-pack/hi/HiOutlineNewspaper';
-  import BsSend from 'svelte-icons-pack/bs/BsSend';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { throttle } from 'lodash';
+  import scrollTo from '$lib/utils/scrollTo';
+
+  let display = true;
+
+  function onClick(e: Event, id: string) {
+    e.preventDefault();
+    scrollTo(id);
+  }
+
+  onMount(() => {
+    let scrollPos = 0;
+
+    function onScroll(e: Event) {
+      let newPos = document.documentElement.scrollTop;
+      if (scrollPos > newPos) {
+        display = true;
+      } else {
+        display = false;
+      }
+      scrollPos = newPos;
+    }
+    document.getElementById('navbar');
+    window.addEventListener(
+      'scroll',
+      throttle((e) => onScroll(e), 150, { leading: false }),
+    );
+  });
 </script>
 
-<aside class="nav-wrapper">
-  <ul class="nav-item-list">
-    <li
-      class="nav-item mouse-trailer__interactable bg-[#0d2636]"
-      data-mouse-interactable-type="link"
-    >
-      <a href="/#">
-        <img
-          src={GitHub}
-          alt="github logo"
-          class="h-full w-full object-cover brightness-[100] "
-        />
-      </a>
-    </li>
-    <li
-      class="nav-item mouse-trailer__interactable bg-[#007ab9]"
-      data-mouse-interactable-type="link"
-    >
-      <a href="/#">
-        <img
-          src={LinkedIn}
-          alt="LinkedIn logo"
-          class="h-full w-full object-cover "
-        />
-      </a>
-    </li>
-    <li
-      class="nav-item mouse-trailer__interactable"
-      data-mouse-interactable-type="link"
-    >
-      <a href="/#">
-        <Icon src={HiOutlineNewspaper} size="56" />
-      </a>
-    </li>
-    <li
-      class="nav-item mouse-trailer__interactable bg-yellow-300"
-      data-mouse-interactable-type="link"
-    >
-      <a href="/#" class="">
-        <Icon src={BsSend} size="56" />
-      </a>
-    </li>
-  </ul>
-</aside>
+<div id="navbar" class="nav-wrapper">
+  <nav data-display={display}>
+    <div class="main-container m-auto flex h-16  items-center gap-8">
+      <a class="nav-item" href="/#">Weichen Tie</a>
+      <a class="nav-item" on:click={(e) => onClick(e, 'about')} href="/#"
+        >About</a>
+      <a class="nav-item" on:click={(e) => onClick(e, 'experiments')} href="/#"
+        >Experiments</a>
+      <a class="nav-item" on:click={(e) => onClick(e, 'skills')} href="/#"
+        >Skills</a>
+      <a class="nav-item" href="/#">Resume</a>
+      <a class="nav-item" on:click={(e) => onClick(e, 'contact')} href="/#"
+        >Contact Me</a>
+    </div>
+  </nav>
+</div>
 
 <style lang="postcss">
   @tailwind components;
   @layer components {
     .nav-wrapper {
-      @apply fixed top-1/2 z-50 -translate-y-1/2;
-    }
-    .nav-item-list {
-      @apply flex flex-col bg-white;
-    }
-    .nav-item {
-      @apply aspect-square w-24;
+      @apply fixed top-0 z-50 flex w-full text-xl text-white;
     }
 
-    .nav-item > a {
-      @apply flex aspect-square w-full  items-center justify-center p-2;
+    .nav-wrapper:hover > nav {
+      @apply translate-y-0;
+    }
+    nav[data-display='true'] {
+      @apply translate-y-0;
+    }
+    nav[data-display='false'] {
+      @apply -translate-y-full;
+    }
+    nav {
+      @apply w-full bg-black bg-opacity-70 font-primary transition-transform duration-300;
+    }
+
+    .nav-item:first-child {
+      @apply mr-auto;
     }
     .nav-item:hover {
       @apply text-yellow-400;

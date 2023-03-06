@@ -10,40 +10,34 @@
   <ul class="nav-item-list">
     <li
       class="nav-item mouse-trailer__interactable bg-[#0d2636]"
-      data-mouse-interactable-type="link"
-    >
+      data-mouse-interactable-type="link">
       <a href="/#">
         <img
           src={GitHub}
           alt="github logo"
-          class="h-full w-full object-cover brightness-[100] "
-        />
+          class="h-full w-full object-cover brightness-[100] " />
       </a>
     </li>
     <li
       class="nav-item mouse-trailer__interactable bg-[#007ab9]"
-      data-mouse-interactable-type="link"
-    >
+      data-mouse-interactable-type="link">
       <a href="/#">
         <img
           src={LinkedIn}
           alt="LinkedIn logo"
-          class="h-full w-full object-cover "
-        />
+          class="h-full w-full object-cover " />
       </a>
     </li>
     <li
       class="nav-item mouse-trailer__interactable"
-      data-mouse-interactable-type="link"
-    >
+      data-mouse-interactable-type="link">
       <a href="/#">
         <Icon src={HiOutlineNewspaper} size="56" />
       </a>
     </li>
     <li
       class="nav-item mouse-trailer__interactable bg-yellow-300"
-      data-mouse-interactable-type="link"
-    >
+      data-mouse-interactable-type="link">
       <a href="/#" class="">
         <Icon src={BsSend} size="56" />
       </a>

@@ -3,6 +3,7 @@
   "tabWidth": 2,
   "semi": true,
   "singleQuote": true,
+  "bracketSameLine": true,
   "plugins": [
     "prettier-plugin-svelte",
     "prettier-plugin-organize-imports",
