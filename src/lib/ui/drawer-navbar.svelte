@@ -1,5 +1,5 @@
 <script>
-  import ScrambleText from "$lib/scramble-text/scramble-text.svelte";
+  import ScrambleText from '$lib/scramble-text/scramble-text.svelte';
 </script>
 
 <aside class="nav-outer-wrapper">
@@ -31,14 +31,13 @@
   @tailwind components;
   @layer components {
     .nav-outer-wrapper {
-      @apply w-96 h-screen bg-slate-900 shadow-md;
+      @apply h-screen w-96 bg-slate-900 shadow-md;
     }
     .nav-item-list {
-      @apply flex flex-col gap-4 px-4
-      ;
+      @apply flex flex-col gap-4 px-4;
     }
     .nav-item {
-      @apply w-full font-mono text-white font-semibold text-5xl uppercase;
+      @apply w-full font-mono text-5xl font-semibold uppercase text-white;
     }
     .nav-item:hover {
       @apply text-yellow-400;

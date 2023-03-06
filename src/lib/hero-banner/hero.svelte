@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import { throttle } from 'lodash'
+  import { onMount } from 'svelte';
+  import { throttle } from 'lodash';
   import {
     Cache,
     FileLoader,
@@ -12,60 +12,61 @@
     WebGLRenderer,
     GLSL3,
     CubeTextureLoader,
-  } from 'three'
-  console.log(throttle)
+  } from 'three';
+  console.log(throttle);
 
-  Cache.enabled = true
-  const loader = new FileLoader()
-  const cubeMapLoader = new CubeTextureLoader()
+  Cache.enabled = true;
+  const loader = new FileLoader();
+  const cubeMapLoader = new CubeTextureLoader();
   onMount(async () => {
     window.addEventListener(
       'resize',
       throttle(handleResize, 50, { leading: false }),
-    )
+    );
 
     function handleResize() {
-      const width = window.innerWidth
-      const height = window.innerHeight
-      camera.aspect = width / height
-      camera.updateProjectionMatrix()
-      renderer.setSize(width, height)
-      renderer.getContext().canvas.width = window.innerWidth
-      renderer.getContext().canvas.height = window.innerHeight
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+      renderer.getContext().canvas.width = window.innerWidth;
+      renderer.getContext().canvas.height = window.innerHeight;
     }
 
     function animate(time: number) {
-      camera.lookAt(0, 0, 0)
-      camera.translateX(0.1)
-      quad.material.uniforms.u_Time = { value: time * 0.001 }
+      camera.position.x = 15 * Math.sin(time * 0.00051);
+      camera.position.z = 12 * Math.cos(time * 0.00041);
+      camera.lookAt(0, 0, 0);
+      quad.material.uniforms.u_Time = { value: time * 0.0005 };
 
       quad.material.uniforms.u_WindowWidth = {
         value: renderer.getContext().canvas.width,
-      }
+      };
       quad.material.uniforms.u_WindowHeight = {
         value: renderer.getContext().canvas.height,
-      }
-      renderer.render(scene, camera)
-      requestAnimationFrame(animate)
+      };
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
     }
 
-    const vert = loader.loadAsync('shaders/spheretracing/vert.3se')
-    const frag = loader.loadAsync('shaders/spheretracing/frag.glsl')
+    const vert = loader.loadAsync('shaders/spheretracing/vert.3se');
+    const frag = loader.loadAsync('shaders/spheretracing/frag.glsl');
     const cubeMap = cubeMapLoader
       .setPath('cubemaps/aurora/')
-      .loadAsync(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'])
+      .loadAsync(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 
-    const scene = new Scene()
+    const scene = new Scene();
     const renderer = new WebGLRenderer({
       canvas: document.getElementById('hero-canvas') as HTMLCanvasElement,
-    })
+    });
 
     const camera = new PerspectiveCamera(
-      75,
+      50,
       renderer.getContext().canvas.width / renderer.getContext().canvas.height,
       0.1,
       2000,
-    )
+    );
     const quad = new Mesh(
       new PlaneGeometry(2, 2),
       new ShaderMaterial({
@@ -89,12 +90,12 @@
           u_CubeMapTex: { value: await cubeMap },
         },
       }),
-    )
-    scene.add(quad)
-    camera.position.z = 10
-
-    requestAnimationFrame(animate)
-  })
+    );
+    scene.add(quad);
+    camera.position.z = 15;
+    camera.position.y = 10;
+    requestAnimationFrame(animate);
+  });
 </script>
 
 <canvas

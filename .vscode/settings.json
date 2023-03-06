@@ -1,3 +1,8 @@
 {
-    "prettier.requireConfig": true
+    "prettier.requireConfig": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "liveServer.settings.ChromeDebuggingAttachment": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

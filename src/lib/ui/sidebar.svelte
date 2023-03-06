@@ -1,9 +1,9 @@
 <script>
-  import GitHub from '../../assets/company-icons/GitHub.webp'
-  import LinkedIn from '../../assets/company-icons/LinkedIn.png'
-  import HiOutlineNewspaper from 'svelte-icons-pack/hi/HiOutlineNewspaper'
-  import BsSend from 'svelte-icons-pack/bs/BsSend'
-  import Icon from 'svelte-icons-pack/Icon.svelte'
+  import GitHub from '../../assets/company-icons/GitHub.webp';
+  import LinkedIn from '../../assets/company-icons/LinkedIn.png';
+  import HiOutlineNewspaper from 'svelte-icons-pack/hi/HiOutlineNewspaper';
+  import BsSend from 'svelte-icons-pack/bs/BsSend';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
 </script>
 
 <aside class="nav-wrapper">
@@ -16,7 +16,7 @@
         <img
           src={GitHub}
           alt="github logo"
-          class="w-full h-full object-cover brightness-[100] "
+          class="h-full w-full object-cover brightness-[100] "
         />
       </a>
     </li>
@@ -28,7 +28,7 @@
         <img
           src={LinkedIn}
           alt="LinkedIn logo"
-          class="object-cover w-full h-full "
+          class="h-full w-full object-cover "
         />
       </a>
     </li>
