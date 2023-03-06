@@ -175,24 +175,24 @@ void main() {
     vec2 uv = gl_FragCoord.xy / vec2(u_WindowWidth, u_WindowHeight) * 2.0 - 1.0;
     Ray ray = createRayFromCamera(uv);
     
-    float marchedDist = 0.0;
+    float totalMarchedDist = 0.0;
 
     f_Color = vec4(0.0, 0.0, 0.0, 1.0);
-    int marchSteps = 0;
+    int marchedSteps = 0;
 
-    float distanceMarched;
+    float deltaDistMarched;
 
-    while(marchedDist < MAX_DISTANCE && marchSteps < MAX_STEP_COUNT) {
-        distanceMarched = getSceneDist(ray.origin);
-        ray.origin += ray.direction * distanceMarched;
-        marchedDist += distanceMarched;
-        marchSteps++;
-        if(distanceMarched <= epsilon) {
+    while(marchedSteps < MAX_STEP_COUNT) {
+        deltaDistMarched = getSceneDist(ray.origin);
+        ray.origin += ray.direction * deltaDistMarched;
+        totalMarchedDist += deltaDistMarched;
+        marchedSteps++;
+        if(deltaDistMarched <= epsilon) {
             break;
         }
     }
     
-    if(distanceMarched <= epsilon) {
+    if(deltaDistMarched <= epsilon) {
         SceneInfo info = getRaySceneInfo(ray.origin);
         vec3 normal = estimateNormal(ray.origin);
         vec3 color = getColor(info.color, ray.origin, normal);

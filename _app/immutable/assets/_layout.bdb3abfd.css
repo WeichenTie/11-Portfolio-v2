@@ -525,6 +525,9 @@ video {
 .h-64{
   height: 16rem;
 }
+.h-\[100lvh\]{
+  height: 100lvh;
+}
 .h-\[600px\]{
   height: 600px;
 }
