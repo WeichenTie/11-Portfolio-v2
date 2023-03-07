@@ -13,7 +13,6 @@
     GLSL3,
     CubeTextureLoader,
   } from 'three';
-
   Cache.enabled = true;
   const loader = new FileLoader();
   const cubeMapLoader = new CubeTextureLoader();
@@ -24,6 +23,7 @@
     );
 
     function handleResize() {
+      console.log('running');
       const width = window.innerWidth;
       const height = window.innerHeight;
       camera.aspect = width / height;
@@ -31,7 +31,8 @@
       renderer.setSize(width, height);
       renderer.getContext().canvas.width = window.innerWidth;
       renderer.getContext().canvas.height = window.innerHeight;
-      (renderer.getContext().canvas as Element).style = "height: 100lvh !important;";
+      (renderer.getContext().canvas as Element).style =
+        'height: 100lvh !important;';
     }
 
     function animate(time: number) {
