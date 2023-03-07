@@ -60,9 +60,10 @@ float noise(float p) {
 Ray createRay(vec3 origin, vec3 direction) {
     Ray r;
     r.origin = origin;
-    r.direction = vec3(direction.x + 0.0001 * (hash(2002.0 * hash(direction.x) + 2002.0 * hash(direction.y) + 2002.0 * hash(direction.x + direction.y + direction.z)) - 0.5) * 2.0,
-                        direction.y + 0.0001 * (hash(420.0 * hash(direction.x) + 420.0 * hash(direction.y) + 420.0 * hash(direction.x + direction.y + direction.z)) - 0.5) * 2.0,
-                        direction.z + 0.0001 * (hash(1303.0 * hash(direction.x) + 1303.0 * hash(direction.y) + 1303.0 * hash(direction.x + direction.y + direction.z)) - 0.5) * 2.0);
+    r.direction =direction;
+    //  vec3(direction.x + 0.1 * (hash(2002.0 * hash(direction.x) + 2002.0 * hash(direction.y) + 2002.0 * hash(direction.x + direction.y + direction.z)) - 0.5) * 2.0,
+    //                     direction.y + 0.1 * (hash(420.0 * hash(direction.x) + 420.0 * hash(direction.y) + 420.0 * hash(direction.x + direction.y + direction.z)) - 0.5) * 2.0,
+    //                     direction.z + 0.1 * (hash(1303.0 * hash(direction.x) + 1303.0 * hash(direction.y) + 1303.0 * hash(direction.x + direction.y + direction.z)) - 0.5) * 2.0);
     return r;
 }
 
