@@ -180,12 +180,17 @@ void main() {
     int marchedSteps = 0;
 
     float deltaDistMarched;
-
+    #pragma optionNV (unroll all)
     while(marchedSteps < MAX_STEP_COUNT) {
         deltaDistMarched = getSceneDist(ray.origin);
         ray.origin += ray.direction * deltaDistMarched;
         totalMarchedDist += deltaDistMarched;
         marchedSteps++;
+
+        if (totalMarchedDist > MAX_DISTANCE) {
+            f_Color = vec4(0,0,0, 1.0);
+            return;
+        }
         if(deltaDistMarched <= epsilon) {
             break;
         }
