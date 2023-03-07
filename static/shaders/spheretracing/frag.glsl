@@ -1,7 +1,7 @@
 precision lowp float;
 #define PI 3.141592653589793
 #define HASHSCALE 0.1031
-#define NUM_SHAPES 14
+#define NUM_SHAPES 10
 #define MAX_DISTANCE 50.0
 #define MAX_STEP_COUNT 96
 
@@ -166,10 +166,6 @@ void main() {
     Shape(vec3(noise(u_Time * 0.13 + 7000.0) * 5.0, noise(u_Time * 0.14 + 1000.0) * 4.5, noise(u_Time * 0.15 + 6000.0) * 6.0), vec3(2.0), vec4(0.0, 1.0, 1.0, 1.0)), 
     Shape(vec3(noise(u_Time * 0.14 - 7000.0) * 5.0, noise(u_Time * 0.13 - 5000.0) * 4.5, noise(u_Time * 0.13 - 1000.0) * 6.0), vec3(2.0), vec4(1.0, 1.0, 0.0, 1.0)), 
     Shape(vec3(noise(u_Time * 0.18 + 3000.0) * 5.0, noise(u_Time * 0.10 + 1500.0) * 4.5, noise(u_Time * 0.19 + 9000.0) * 6.0), vec3(2.0), vec4(1.0, 0.6, 0.2, 1.0)), 
-    Shape(vec3(noise(u_Time * 0.16 - 2000.0) * 5.0, noise(u_Time * 0.12 - 4500.0) * 4.5, noise(u_Time * 0.16 - 2000.0) * 6.0), vec3(2.0), vec4(0.1, 1.0, 0.2, 1.0)), 
-    Shape(vec3(noise(u_Time * 0.12 + 4000.0) * 5.0, noise(u_Time * 0.11 + 2200.0) * 4.5, noise(u_Time * 0.17 + 3200.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 0.0, 1.0)), 
-    Shape(vec3(noise(u_Time * 0.13 + 3000.0) * 5.0, noise(u_Time * 0.13 + 1600.0) * 4.5, noise(u_Time * 0.42 + 2700.0) * 6.0), vec3(2.0), vec4(0.0, 0.5, 1.0, 1.0)), 
-    Shape(vec3(noise(u_Time * 0.15 - 7900.0) * 5.0, noise(u_Time * 0.16 - 8800.0) * 4.5, noise(u_Time * 0.15 - 6400.0) * 6.0), vec3(2.0), vec4(1.0, 0.0, 1.0, 1.0)), 
     Shape(vec3(noise(u_Time * 0.18 + 1300.0) * 5.0, noise(u_Time * 0.18 + 4200.0) * 4.5, noise(u_Time * 0.13 + 7100.0) * 6.0), vec3(2.0), vec4(0.0, 1.0, 1.0, 1.0)), 
     Shape(vec3(noise(u_Time * 0.11 - 6400.0) * 5.0, noise(u_Time * 0.14 - 2800.0) * 4.5, noise(u_Time * 0.12 - 3200.0) * 6.0), vec3(2.0), vec4(1.0, 1.0, 0.0, 1.0)), 
     Shape(vec3(noise(u_Time * 0.12 + 3400.0) * 5.0, noise(u_Time * 0.12 + 2100.0) * 4.5, noise(u_Time * 0.10 + 2400.0) * 6.0), vec3(2.0), vec4(1.0, 0.6, 0.2, 1.0)), 

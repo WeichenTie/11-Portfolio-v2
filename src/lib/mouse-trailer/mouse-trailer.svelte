@@ -4,6 +4,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import HiOutlinePlus from 'svelte-icons-pack/hi/HiOutlinePlus';
   import FiArrowUpRight from 'svelte-icons-pack/fi/FiArrowUpRight';
+  import { throttle } from 'lodash';
   function animate(
     trailer: HTMLElement,
     e: MouseEvent,
@@ -11,6 +12,10 @@
   ) {
     const x = e.clientX - trailer!.clientWidth / 2,
       y = e.clientY - trailer!.clientHeight / 2;
+    // trailer.style.transform = ``;
+
+    // trailer.style.top = `${y}px`;
+    // trailer.style.left = `${x}px`;
     const transform = {
       transform: `translate(${x}px, ${y}px) scale(${isInteracting ? 6 : 1})`,
     };
@@ -37,7 +42,6 @@
             iconType = HiOutlinePlus;
             break;
         }
-
         active = !!type;
       },
       { signal: controller.signal },
@@ -70,9 +74,9 @@
   @layer components {
     #mouse-trailer {
       @apply pointer-events-none fixed z-[99999999] flex 
-          aspect-square w-4 items-center
-          justify-center
-          rounded-full bg-white;
+          aspect-square w-4 transform-gpu
+          items-center
+          justify-center rounded-full bg-white;
     }
 
     .mouse-trailer__icon {

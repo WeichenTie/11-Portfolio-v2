@@ -6,7 +6,6 @@
   import Hero from '$lib/hero-banner/hero.svelte';
 
   import Navbar from '$lib/ui/navbar.svelte';
-
 </script>
 
 <MouseTrailer />
@@ -57,7 +56,7 @@
         <div
           class="flex h-[600px] w-full min-w-[420px] flex-1 items-start overflow-hidden rounded-lg lg:w-96 md:min-w-0">
           <img
-            src='fishing.jpg'
+            src="fishing.jpg"
             alt="Weichen Tie"
             class="h-full w-full object-cover object-[0px_30%]" />
         </div>
@@ -71,7 +70,7 @@
       <div class="card-grid my-8">
         <Card>
           <img
-            src='projects/SlimeSimulation.webp'
+            src="projects/SlimeSimulation.webp"
             alt="Slime Simulation Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -86,7 +85,7 @@
 
         <Card>
           <img
-            src='projects/goofygolf.webp'
+            src="projects/goofygolf.webp"
             alt="Goofy Golf Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -100,7 +99,7 @@
         </Card>
         <Card>
           <img
-            src='projects/gpu.webp'
+            src="projects/gpu.webp"
             alt="GPU Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -114,7 +113,7 @@
         </Card>
         <Card>
           <img
-            src='projects/grass.webp'
+            src="projects/grass.webp"
             alt="Grass Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -129,7 +128,7 @@
 
         <Card>
           <img
-            src='projects/Raymarching.webp'
+            src="projects/Raymarching.webp"
             alt="Ray Marching Project"
             class=" h-full w-full object-cover"
             slot="image" />
@@ -142,7 +141,7 @@
         </Card>
         <Card>
           <img
-            src='projects/ParticleAttractor.webp'
+            src="projects/ParticleAttractor.webp"
             alt="Particle Attractor Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -155,7 +154,7 @@
         </Card>
         <Card>
           <img
-            src='projects/PathfindingVisualisation.webp'
+            src="projects/PathfindingVisualisation.webp"
             alt="Pathfinding Visualisation Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -168,7 +167,7 @@
         </Card>
         <Card>
           <img
-            src='projects/Tetris.webp'
+            src="projects/Tetris.webp"
             alt="Particle Attractor Project"
             class="h-full w-full object-cover"
             slot="image" />
@@ -192,62 +191,62 @@
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/react.svg'
+              src="skills/react.svg"
               alt="ReactSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/Vue.svg'
+              src="skills/Vue.svg"
               alt="VueSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/Svelte.svg'
+              src="skills/Svelte.svg"
               alt="SvelteSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full bg-white object-contain p-2"
-              src='skills/Nextjs.svg'
+              src="skills/Nextjs.svg"
               alt="NextJS Skill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/html.svg'
+              src="skills/html.svg"
               alt="HTMLSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/css-3.svg'
+              src="skills/css-3.svg"
               alt="CssSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/sass.svg'
+              src="skills/sass.svg"
               alt="SassSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/tailwind.svg'
+              src="skills/tailwind.svg"
               alt="TailwindSkill icon" />
           </SkillIcon>
 
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/typescript.svg'
+              src="skills/typescript.svg"
               alt="TsSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/js.svg'
+              src="skills/js.svg"
               alt="JsSkill icon" />
           </SkillIcon>
         </ul>
@@ -258,25 +257,25 @@
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/postgres.svg'
+              src="skills/postgres.svg"
               alt="PostgresSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full bg-[#092e20] object-contain p-2"
-              src='skills/django.svg'
+              src="skills/django.svg"
               alt="DjangoSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain invert"
-              src='skills/Flask.svg'
+              src="skills/Flask.svg"
               alt="FlaskSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/dotNet.svg'
+              src="skills/dotNet.svg"
               alt="DotNetSkill icon" />
           </SkillIcon>
         </ul>
@@ -287,50 +286,50 @@
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/unreal.png'
+              src="skills/unreal.png"
               alt="UnrealSkill icon" />
           </SkillIcon>
 
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain brightness-[100]"
-              src='skills/Unity.svg'
+              src="skills/Unity.svg"
               alt="UnitySkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full bg-white object-contain p-2"
-              src='skills/Opengl.svg'
+              src="skills/Opengl.svg"
               alt="OpenGl icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/C-Sharp.svg'
+              src="skills/C-Sharp.svg"
               alt="CSharpSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/cpp.svg'
+              src="skills/cpp.svg"
               alt="CppSkill Skill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/C.svg'
+              src="skills/C.svg"
               alt="CSkill Skill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/java.svg'
+              src="skills/java.svg"
               alt="JavaSkill icon" />
           </SkillIcon>
           <SkillIcon>
             <img
               class="aspect-square w-full object-contain"
-              src='skills/python.svg'
+              src="skills/python.svg"
               alt="PythonSkill icon" />
           </SkillIcon>
         </ul>

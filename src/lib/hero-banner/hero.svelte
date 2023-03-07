@@ -12,6 +12,7 @@
     WebGLRenderer,
     GLSL3,
     CubeTextureLoader,
+    Clock,
   } from 'three';
   Cache.enabled = true;
   const loader = new FileLoader();
@@ -23,7 +24,6 @@
     );
 
     function handleResize() {
-      console.log('running');
       const width = window.innerWidth;
       const height = window.innerHeight;
       camera.aspect = width / height;
@@ -33,21 +33,33 @@
       renderer.getContext().canvas.height = window.innerHeight;
       (renderer.getContext().canvas as Element).style =
         'height: 100lvh !important;';
-    }
-
-    function animate(time: number) {
-      camera.position.x = 15 * Math.sin(time * 0.00051);
-      camera.position.z = 12 * Math.cos(time * 0.00041);
-      camera.lookAt(0, 0, 0);
-      quad.material.uniforms.u_Time = { value: time * 0.0005 };
-
       quad.material.uniforms.u_WindowWidth = {
         value: renderer.getContext().canvas.width,
       };
       quad.material.uniforms.u_WindowHeight = {
         value: renderer.getContext().canvas.height,
       };
-      renderer.render(scene, camera);
+    }
+
+    let clock = new Clock();
+    let delta = 0;
+    let interval = 1 / 60;
+
+    function animate(time: number) {
+      const debugDelta = clock.getDelta();
+      delta += debugDelta;
+
+      if (1 / debugDelta < 60) console.log(1 / debugDelta);
+
+      if (delta > interval) {
+        camera.position.x = 15 * Math.sin(time * 0.00051);
+        camera.position.z = 12 * Math.cos(time * 0.00041);
+        camera.lookAt(0, 0, 0);
+        quad.material.uniforms.u_Time = { value: time * 0.0005 };
+
+        renderer.render(scene, camera);
+        delta = delta % interval;
+      }
       requestAnimationFrame(animate);
     }
 
@@ -74,7 +86,7 @@
       0.1,
       2000,
     );
-    handleResize();
+
     const quad = new Mesh(
       new PlaneGeometry(2, 2),
       new ShaderMaterial({
@@ -102,6 +114,7 @@
     scene.add(quad);
     camera.position.z = 15;
     camera.position.y = 10;
+    handleResize();
     requestAnimationFrame(animate);
   });
 </script>
