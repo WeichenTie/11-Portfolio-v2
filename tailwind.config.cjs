@@ -20,9 +20,11 @@ module.exports = {
     },
     extend: {
       fontFamily : {
-        "primary" : ['Hanken Grotesk', 'sans-serif'],
+        "primary" : ['Roboto','Hanken Grotesk', 'sans-serif'],
+        // "primary": ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
         "secondary" : ['Saira Extra Condensed', 'sans-serif'],
-        "cursive": ['Caveat', 'cursive']
+        "cursive": ['Caveat', 'cursive'],
+        "mono": ['Roboto Mono', 'monospace']
       }
     },
   },

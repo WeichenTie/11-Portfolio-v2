@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
 
   let ref: HTMLElement;
-  const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   onMount(() => {
     const controller = new AbortController();
     const child = ref.firstChild as ChildNode;
@@ -16,7 +16,7 @@
         const interval = setInterval(() => {
           const randomText = originalText!
             .split('')
-            .map((_) => LETTERS[Math.floor(Math.random() * 26)])
+            .map((letter) => letter === ' ' ? ' ' : LETTERS[Math.floor(Math.random() * 26 * 2)])
             .join('');
           child.textContent =
             originalText!.slice(0, iterations) +

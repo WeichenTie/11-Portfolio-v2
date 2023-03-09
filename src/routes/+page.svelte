@@ -256,6 +256,12 @@
           class="mt-4 mb-8 grid grid-cols-[repeat(auto-fit,minmax(96px,1fr))] gap-16">
           <SkillIcon>
             <img
+              class="aspect-square w-full object-contain bg-white p-2"
+              src="skills/NodeJs.svg"
+              alt="Nodejs icon" />
+          </SkillIcon>
+          <SkillIcon>
+            <img
               class="aspect-square w-full object-contain"
               src="skills/postgres.svg"
               alt="PostgresSkill icon" />
@@ -340,8 +346,8 @@
     <!-- CONTACT ME -->
     <h2>DON'T BE A STRANGER 👋</h2>
     <Tagged tagName="ContactMe">
-      <div class="flex items-center">
-        <form class="text-container my-8 space-y-8" action="">
+      <div class="flex h-[542px] items-center">
+        <form class="text-container my-8 flex-shrink-[0.1] space-y-8" action="">
           <div class="flex w-full  flex-col gap-2">
             <label class="text-neutral-300" for="email">Email</label>
             <input
@@ -350,7 +356,7 @@
               type="email"
               name="email" />
           </div>
-          <div class="flex w-full flex-col gap-2">
+          <div class="flex w-full flex-col gap-2 ">
             <label class="text-neutral-300" for="message">Message</label>
             <textarea class="h-64 bg-neutral-900" id="message" name="message" />
           </div>
@@ -362,7 +368,20 @@
           </button>
         </form>
         <div class="mx-8 max-h-[478px] min-h-[478px] w-px bg-neutral-700" />
-        <div />
+        <div class="flex flex-col gap-6 h-full w-full flex-grow-0 pt-16 pb-28">
+          <a
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
+            href="/#">GitHub</a>
+          <a
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
+            href="/#">LinkedIn</a>
+          <a
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
+            href="/#">Resume</a>
+          <a
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
+            href="/#">Report a bug</a>
+        </div>
       </div>
     </Tagged>
   </section>
