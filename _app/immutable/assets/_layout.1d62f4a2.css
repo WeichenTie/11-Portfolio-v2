@@ -574,8 +574,8 @@ video {
 .flex-none{
   flex: none;
 }
-.flex-shrink-\[0\.1\]{
-  flex-shrink: 0.1;
+.flex-shrink-\[0\.2\]{
+  flex-shrink: 0.2;
 }
 .flex-grow-0{
   flex-grow: 0;
@@ -593,6 +593,9 @@ video {
 }
 .transform-gpu{
   transform: translate3d(var(--tw-translate-x), var(--tw-translate-y), 0) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.resize-none{
+  resize: none;
 }
 .resize{
   resize: both;
@@ -880,10 +883,29 @@ video {
   }
 }
 @media (max-width: 1279px){
+  .xl\:hidden{
+    display: none;
+  }
+  .xl\:h-auto{
+    height: auto;
+  }
+  .xl\:w-full{
+    width: 100%;
+  }
+  .xl\:flex-col{
+    flex-direction: column;
+  }
   .xl\:space-y-80 > :not([hidden]) ~ :not([hidden]){
     --tw-space-y-reverse: 0;
     margin-top: calc(20rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(20rem * var(--tw-space-y-reverse));
+  }
+  .xl\:py-4{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .xl\:pt-4{
+    padding-top: 1rem;
   }
   .xl\:text-\[12rem\]{
     font-size: 12rem;
