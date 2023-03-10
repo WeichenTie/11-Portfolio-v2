@@ -347,7 +347,7 @@
     <h2>DON'T BE A STRANGER 👋</h2>
     <Tagged tagName="ContactMe">
       <div class="flex h-[542px] items-center">
-        <form class="text-container my-8 flex-shrink-[0.1] space-y-8" action="">
+        <form class="text-container my-8 flex-shrink-[0.2] space-y-8" action="">
           <div class="flex w-full  flex-col gap-2">
             <label class="text-neutral-300" for="email">Email</label>
             <input
@@ -367,7 +367,7 @@
             >Submit
           </button>
         </form>
-        <div class="mx-8 max-h-[478px] min-h-[478px] w-px bg-neutral-700" />
+        <div class="mx-8 max-h-[478px] min-h-[478px] w-px bg-neutral-700 lg:hidden" />
         <div class="flex flex-col gap-6 h-full w-full flex-grow-0 pt-16 pb-28">
           <a
             class="flex flex-1 w-full items-center justify-center bg-neutral-900"
