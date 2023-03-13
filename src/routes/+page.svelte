@@ -371,10 +371,11 @@
         <div class="flex flex-col gap-6 h-full w-full flex-grow-0 pt-16 pb-28 xl:pt-4">
           <a
             class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
-            href="/#">GitHub</a>
+            href="https://github.com/WeichenTie">GitHub</a>
           <a
             class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
-            href="/#">LinkedIn</a>
+            href="https://www.linkedin.com/in/weichen-tie-bb783020b/
+            ">LinkedIn</a>
           <a
             class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
             href="/#">Resume</a>
