@@ -49,8 +49,6 @@
       const debugDelta = clock.getDelta();
       delta += debugDelta;
 
-      if (1 / debugDelta < 60) console.log(1 / debugDelta);
-
       if (delta > interval) {
         camera.position.x = 15 * Math.sin(time * 0.00051);
         camera.position.z = 12 * Math.cos(time * 0.00041);

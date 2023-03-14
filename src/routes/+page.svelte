@@ -346,8 +346,8 @@
     <!-- CONTACT ME -->
     <h2>DON'T BE A STRANGER 👋</h2>
     <Tagged tagName="ContactMe">
-      <div class="flex h-[542px] items-center">
-        <form class="text-container my-8 flex-shrink-[0.2] space-y-8" action="">
+      <div class="flex h-[542px] items-center xl:flex-col xl:h-auto">
+        <form class="text-container my-8 flex-shrink-[0.2] space-y-8 xl:w-full" action="">
           <div class="flex w-full  flex-col gap-2">
             <label class="text-neutral-300" for="email">Email</label>
             <input
@@ -358,7 +358,7 @@
           </div>
           <div class="flex w-full flex-col gap-2 ">
             <label class="text-neutral-300" for="message">Message</label>
-            <textarea class="h-64 bg-neutral-900" id="message" name="message" />
+            <textarea class="h-64 bg-neutral-900 resize-none" id="message" name="message" />
           </div>
 
           <button
@@ -367,19 +367,20 @@
             >Submit
           </button>
         </form>
-        <div class="mx-8 max-h-[478px] min-h-[478px] w-px bg-neutral-700 lg:hidden" />
-        <div class="flex flex-col gap-6 h-full w-full flex-grow-0 pt-16 pb-28">
+        <div class="mx-8 max-h-[478px] min-h-[478px] w-px bg-neutral-700 xl:hidden" />
+        <div class="flex flex-col gap-6 h-full w-full flex-grow-0 pt-16 pb-28 xl:pt-4">
           <a
-            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
-            href="/#">GitHub</a>
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
+            href="https://github.com/WeichenTie">GitHub</a>
           <a
-            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
-            href="/#">LinkedIn</a>
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
+            href="https://www.linkedin.com/in/weichen-tie-bb783020b/
+            ">LinkedIn</a>
           <a
-            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
             href="/#">Resume</a>
           <a
-            class="flex flex-1 w-full items-center justify-center bg-neutral-900"
+            class="flex flex-1 w-full items-center justify-center bg-neutral-900 xl:py-4"
             href="/#">Report a bug</a>
         </div>
       </div>
