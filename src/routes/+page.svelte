@@ -362,7 +362,7 @@
           </div>
 
           <button
-            class="ml-auto block border border-yellow-400 px-4 py-2 text-xl text-yellow-400"
+            class="ml-auto block border border-yellow-400 px-4 py-2 text-xl text-yellow-400 lg:w-full"
             type="submit"
             >Submit
           </button>
